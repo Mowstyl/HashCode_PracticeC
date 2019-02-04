@@ -1,0 +1,2 @@
+# Header files are written in C, not C++.
+*.h linguist-language=C
