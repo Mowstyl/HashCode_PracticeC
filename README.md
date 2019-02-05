@@ -1,4 +1,4 @@
-# Google HashCode Practice Problem - 2019
+# Google Hash Code 2019 Practice Problem
 
 Here it is!
 
@@ -58,7 +58,7 @@ TBA
 Feel free to create pull requests. Keep in mind that the requests must be synced to the *main* branch. If they have conflicts they'll be rejected.
 Also, the pull requests must have a brief explaination of the work done.
 They must be free of any binary file and the code has to be indented (plain code won't be accepted).
-The code must also follow the GNU c coding style [guideline](https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en).
+The code must also follow the GNU C coding style [guideline](https://developer.gnome.org/programming-guidelines/stable/c-coding-style.html.en).
 
 ## Versioning
 
