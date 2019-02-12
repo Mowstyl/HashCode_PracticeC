@@ -55,13 +55,14 @@ int main(int argc, char *argv[]) {
       miningr,
       maxsize,
       nmush,
-      nslices = 0;
+      nslices = 0,
+      slicesize = 0;
 
   if (code == 0)
     pizza = readFile (input, &nrows, &ncols, &miningr, &maxsize, &nmush);
 
   if (pizza != NULL && code == 0)
-    slices = solve (pizza, &nslices, nrows, ncols, miningr, maxsize, nmush);
+    slices = solve (pizza, &nslices, &slicesize, nrows, ncols, miningr, maxsize, nmush);
 
   if (pizza != NULL && slices != NULL && code == 0)
     code = saveFile (output, slices, nslices);
@@ -79,14 +80,21 @@ int main(int argc, char *argv[]) {
         break;
     }
 
-  if (code > 2 || code == 0)
+  if (pizza != NULL)
     {
 
       for (i = 0; i < nrows; i++)
-        {
-          free (pizza[i]);
-        }
+        free (pizza[i]);
+
       free (pizza);
+    }
+
+  if (slices != NULL)
+    {
+      for (i = 0; i < slicesize; i++)
+        free (slices[i]);
+
+      free (slices);
     }
 
   free (output);

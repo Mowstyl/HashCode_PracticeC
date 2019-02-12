@@ -2,19 +2,20 @@
 #include <stdio.h>
 #include "pizza.h"
 
-int** solve (int  **pizza,
-           int   *nslices,
-           int    nrows,
-           int    ncols,
-           int    miningr,
-           int    maxsize,
-           int    nmush)
+int** solve (int **pizza,
+             int  *nslices,
+             int  *returnsize,
+             int   nrows,
+             int   ncols,
+             int   miningr,
+             int   maxsize,
+             int   nmush)
 {
   char  c;
   int **slices,
+      **used,
         i,
         j,
-      **used = NULL,
         ntoms,
         total;
 
@@ -25,12 +26,24 @@ int** solve (int  **pizza,
       ncols > 0 &&
       maxsize > 0 &&
       miningr >= 0 &&
+      total > nmush &&
+      total > ntoms &&
       nmush >= miningr &&
-      ntoms >= miningr &&
-      used == NULL)
+      ntoms >= miningr)
     {
+      used = (int**) malloc (nrows * sizeof (int*));
       printf ("Yay! %d, %d, %d, %d\n", nrows, ncols, miningr, maxsize);
-      printf ("Toms: %d\nMushes: %d\n", nrows * ncols - nmush, nmush);
+      printf ("Toms: %d\nMushes: %d\n", ntoms, nmush);
+
+      for (i = 0; i < nrows; i++)
+        used[i] = (int*) calloc (ncols, sizeof (int));
+
+      if (nmush < ntoms)
+        *returnsize = nmush / miningr;
+      else
+        *returnsize = ntoms / miningr;
+
+      slices = (int**) malloc (sizeof (int*) * (*returnsize));
       for (i = 0; i < nrows; i++)
         {
           for (j = 0; j < ncols; j++)
@@ -41,9 +54,17 @@ int** solve (int  **pizza,
           printf ("\n");
         }
 
+      for (i = 0; i < nrows; i++)
+        {
+          for (j = 0; j < ncols; j++)
+            {
+              printf ("%d", used[i][j]);
+            }
+          printf ("\n");
+        }
+
       *nslices = 3;
 
-      slices = (int**) malloc (sizeof (int*) * 3);
       slices[0] = (int*) malloc (sizeof (int) * 4);
       slices[1] = (int*) malloc (sizeof (int) * 4);
       slices[2] = (int*) malloc (sizeof (int) * 4);
