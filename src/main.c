@@ -62,7 +62,12 @@ int main(int argc, char *argv[]) {
     pizza = readFile (input, &nrows, &ncols, &miningr, &maxsize, &nmush);
 
   if (pizza != NULL && code == 0)
-    slices = solve (pizza, &nslices, &slicesize, nrows, ncols, miningr, maxsize, nmush);
+    {
+      int cronometer = time (NULL);
+      slices = solve (pizza, &nslices, &slicesize, nrows, ncols, miningr, maxsize, nmush);
+      cronometer = time (NULL) - cronometer;
+      printf ("%d seconds!\n", cronometer);
+    }
 
   if (pizza != NULL && slices != NULL && code == 0)
     code = saveFile (output, slices, nslices);
