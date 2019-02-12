@@ -58,12 +58,12 @@ int main(int argc, char *argv[]) {
       nslices = 0;
 
   if (code == 0)
-    code = readFile (input, &pizza, &nrows, &ncols, &miningr, &maxsize, &nmush);
+    pizza = readFile (input, &nrows, &ncols, &miningr, &maxsize, &nmush);
 
-  if (code == 0)
-    code = solve (pizza, &slices, &nslices, nrows, ncols, miningr, maxsize, nmush);
+  if (pizza != NULL && code == 0)
+    slices = solve (pizza, &nslices, nrows, ncols, miningr, maxsize, nmush);
 
-  if (code == 0)
+  if (pizza != NULL && slices != NULL && code == 0)
     code = saveFile (output, slices, nslices);
 
   switch (code)

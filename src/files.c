@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int
+int**
 readFile (const char   *fileName,
-          int        ***pizza,
           int          *rows,
           int          *cols,
           int          *min,
@@ -15,10 +14,11 @@ readFile (const char   *fileName,
   char  string[20],
        *token,
         c;
-  int code = 1,
-      i,
-      j,
-      lastline;
+  int **pizza,
+        i,
+        j,
+        lastline,
+        code = 1;
 
   printf ("Input file: %s\n", fileName);
   fp = fopen (fileName, "r");
@@ -58,11 +58,11 @@ readFile (const char   *fileName,
 
   if (code == 0)
     {
-      *pizza = (int**) malloc (sizeof (int*) * (*rows));
+      pizza = (int**) malloc (sizeof (int*) * (*rows));
       *nmush = 0;
       for (i = 0; i < *rows; i++)
         {
-          (*pizza)[i] = (int*) malloc (sizeof (int) * (*cols));
+          pizza[i] = (int*) malloc (sizeof (int) * (*cols));
           lastline = i;
           for (j = 0; j < *cols; j++)
             {
@@ -70,11 +70,11 @@ readFile (const char   *fileName,
 
               if (c == 'T')
                 {
-                  (*pizza)[i][j] = 0;
+                  pizza[i][j] = 0;
                 }
               else if (c == 'M')
                 {
-                  (*pizza)[i][j] = 1;
+                  pizza[i][j] = 1;
                   *nmush = *nmush + 1;
                 }
               else
@@ -100,18 +100,18 @@ readFile (const char   *fileName,
   if (code >= 2)
     {
       for (i = 0; i <= lastline; i++)
-        free ((*pizza)[i]);
-      free (*pizza);
-      *pizza = NULL;
+        free (pizza[i]);
+      free (pizza);
+      pizza = NULL;
       code = 2;
       printf ("Cleaned pizza!\n");
     }
 
   fclose(fp);
 
-  printf ("Read code %d\n", code);
+  //printf ("Read code %d\n", code);
 
-  return code;
+  return pizza;
 }
 
 /*
