@@ -7,6 +7,9 @@
  * fileName -> The name of the file. Input.
  * rows     -> A pointer to the number of rows. Output.
  * cols     -> A pointer to the number of columns. Output.
+ * min      -> A pointer to the minimum number of each ingredient. Output.
+ * max      -> A pointer to the max number of total ingredients. Output.
+ * max      -> A pointer to the number of mushrooms. Output.
  *
  * returns  -> A matrix of ints representing the pizza. Output.
  *             0 means Tomato, 1 means Mushroom.
