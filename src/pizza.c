@@ -11,7 +11,6 @@ int** solve (int **pizza,
              int   maxsize,
              int   nmush)
 {
-  char  c;
   int **slices,
       **used,
         i,
@@ -32,9 +31,6 @@ int** solve (int **pizza,
       ntoms >= miningr)
     {
       used = (int**) malloc (nrows * sizeof (int*));
-      printf ("Yay! %d, %d, %d, %d\n", nrows, ncols, miningr, maxsize);
-      printf ("Toms: %d\nMushes: %d\n", ntoms, nmush);
-
       for (i = 0; i < nrows; i++)
         used[i] = (int*) calloc (ncols, sizeof (int));
 
@@ -44,23 +40,22 @@ int** solve (int **pizza,
         *returnsize = ntoms / miningr;
 
       slices = (int**) malloc (sizeof (int*) * (*returnsize));
+
+      // TO-DO
+      printf ("Yay! %d, %d, %d, %d\n", nrows, ncols, miningr, maxsize);
+      printf ("Toms: %d\nMushes: %d\n", ntoms, nmush);
+
       for (i = 0; i < nrows; i++)
         {
           for (j = 0; j < ncols; j++)
-            {
-              c = pizza[i][j] == 0 ? 'T' : 'M';
-              printf ("%c", c);
-            }
+            printf ("%c", pizza[i][j] == 0 ? 'T' : 'M');
           printf ("\n");
         }
 
       for (i = 0; i < nrows; i++)
         {
           for (j = 0; j < ncols; j++)
-            {
-              printf ("%d", used[i][j]);
-            }
-          printf ("\n");
+            used[i][j] = 1;
         }
 
       *nslices = 3;
@@ -81,6 +76,32 @@ int** solve (int **pizza,
       slices[2][1] = 3;
       slices[2][2] = 2;
       slices[2][3] = 4;
+
+      // END TO-DO
+
+      printf ("Score: %d\n", getScore (used, nrows, ncols));
+      for (i = 0; i < nrows; i++)
+        free (used[i]);
+      free (used);
     }
   return slices;
+}
+
+int
+getScore (int **usedCells,
+          int   nrows,
+          int   ncols)
+{
+  int i,
+      j,
+      score;
+
+  score = 0;
+  for (i = 0; i < nrows; i++)
+    {
+      for (j = 0; j < ncols; j++)
+        score += usedCells[i][j];
+    }
+
+  return score;
 }
