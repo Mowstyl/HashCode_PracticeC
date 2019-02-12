@@ -125,10 +125,22 @@ saveFile (const char  *fileName,
           int        **slices,
           int          nslices)
 {
+  int i;
+  FILE *fp;
+
   printf ("Output file: %s\n", fileName);
-  slices = NULL;
-  if (slices == NULL)
-    printf ("Slices: %d\n", nslices);
+  fp = fopen (fileName, "w");
+  fprintf (fp, "%d\n", nslices);
+
+  if (slices != NULL)
+    {
+      for (i = 0; i < nslices; i++)
+        {
+          fprintf (fp, "%d %d %d %d\n", slices[i][0], slices[i][1], slices[i][2], slices[i][3]);
+        }
+    }
+
+  fclose (fp);
 
   return 0;
 }
