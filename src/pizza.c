@@ -43,6 +43,7 @@ int** solve (int **pizza,
       else
         *returnsize = ntoms / miningr;
 
+      slices = (int**) malloc (sizeof (int*) * (*returnsize));
       for (i = 0; i < nrows; i++)
         {
           for (j = 0; j < ncols; j++)
@@ -64,7 +65,6 @@ int** solve (int **pizza,
 
       *nslices = 3;
 
-      slices = (int**) malloc (sizeof (int*) * (*returnsize));
       slices[0] = (int*) malloc (sizeof (int) * 4);
       slices[1] = (int*) malloc (sizeof (int) * 4);
       slices[2] = (int*) malloc (sizeof (int) * 4);
