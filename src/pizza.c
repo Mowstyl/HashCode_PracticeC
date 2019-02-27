@@ -2,14 +2,15 @@
 #include <stdio.h>
 #include "pizza.h"
 
-int** solve (int **pizza,
-             int  *nslices,
-             int  *returnsize,
-             int   nrows,
-             int   ncols,
-             int   miningr,
-             int   maxsize,
-             int   nmush)
+int**
+solve (int **pizza,
+       int  *nslices,
+       int  *returnsize,
+       int   nrows,
+       int   ncols,
+       int   miningr,
+       int   maxsize,
+       int   nmush)
 {
   int **slices,
       **used,
@@ -34,48 +35,9 @@ int** solve (int **pizza,
       for (i = 0; i < nrows; i++)
         used[i] = (int*) calloc (ncols, sizeof (int));
 
-      if (nmush < ntoms)
-        *returnsize = nmush / miningr;
-      else
-        *returnsize = ntoms / miningr;
-
-      slices = (int**) malloc (sizeof (int*) * (*returnsize));
-
       // TO-DO
-      printf ("Yay! %d, %d, %d, %d\n", nrows, ncols, miningr, maxsize);
-      printf ("Toms: %d\nMushes: %d\n", ntoms, nmush);
 
-      for (i = 0; i < nrows; i++)
-        {
-          for (j = 0; j < ncols; j++)
-            printf ("%c", pizza[i][j] == 0 ? 'T' : 'M');
-          printf ("\n");
-        }
-
-      for (i = 0; i < nrows; i++)
-        {
-          for (j = 0; j < ncols; j++)
-            used[i][j] = 1;
-        }
-
-      *nslices = 3;
-
-      slices[0] = (int*) malloc (sizeof (int) * 4);
-      slices[1] = (int*) malloc (sizeof (int) * 4);
-      slices[2] = (int*) malloc (sizeof (int) * 4);
-
-      slices[0][0] = 0;
-      slices[0][1] = 0;
-      slices[0][2] = 2;
-      slices[0][3] = 1;
-      slices[1][0] = 0;
-      slices[1][1] = 2;
-      slices[1][2] = 2;
-      slices[1][3] = 2;
-      slices[2][0] = 0;
-      slices[2][1] = 3;
-      slices[2][2] = 2;
-      slices[2][3] = 4;
+      slices = _splizza (pizza, nslices, returnsize, nrows, ncols, miningr, maxsize, nmush, ntoms);
 
       // END TO-DO
 
@@ -104,4 +66,44 @@ getScore (int **usedCells,
     }
 
   return score;
+}
+
+int** // Devuelve el array de slices
+_splizza (int **pizza, // Matriz pizza
+          int  *nslices, // Numero de slices que se han hecho
+          int  *returnsize, // Tamaño del array devuelto
+          int   nrows,  //numero de filas
+          int   ncols,  //numero de columnas
+          int   miningr,  //numero minimo de cada ingrediente por slice
+          int   maxsize,  //tamaño maximo de cada slice
+          int   nmush,  //numero de champiñones
+          int   ntoms)  //numero de tomeitoes
+{
+  int   maxmin, // El maximo numero de celdas con el ingrediente mas escaso que pueden haber en una porcion
+      **slices,
+        maxslices;
+
+  maxslices = _upperBound (nmush, ntoms, miningr);
+
+
+  slices = (int**) malloc (sizeof (int*) * (*returnsize));
+
+  maxmin = nmush > ntoms ? 0 : 0;
+
+  return slices;
+}
+
+int
+_upperBound (int nmush,
+             int ntoms,
+             int miningr)
+{
+  int maxslices;
+
+  if (nmush > ntoms)
+    maxslices = ntoms / miningr;
+  else
+    maxslices = nmush / miningr;
+
+  return maxslices
 }
